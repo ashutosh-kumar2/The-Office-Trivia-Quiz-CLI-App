@@ -1,0 +1,216 @@
+var readlineSync = require("readline-sync");
+const chalk = require("chalk");
+var scoreLevel1 = 0;
+var scoreLevel2 = 0;
+var score = 0;
+
+console.log(chalk.yellow("Please press the Enter Key after entering your answers\n"));
+console.log("------------------------------------\n");
+console.log(chalk.yellow("What is your name?"));
+
+var myName = readlineSync.question();
+
+console.log(chalk.yellow("\nWelcome ") + chalk.cyan.bold(myName) + chalk.yellow(" to ") + chalk.cyan("The Office Trivia Quiz!\n"));
+
+console.log("------------------------------------\n");
+
+console.log(chalk.cyanBright.bold.bgBlack("Rules\n\n1. Choose the correct option out of a/b/c\n2. Each correct answer fetches you 1 point\n3. You get no points for a wrong answer\n4. There are 3 levels in this quiz\n5. There are 5 questions in each level, if you get 3/5 correct in any level, you advance to the next level"));
+
+var levelOneQuestions = [
+  {
+    question: `
+    What does Michael pretend to fire Pam over in season one?
+    a. Stealing post-it notes
+    b. Not answering the phone
+    c. Wearing her glasses\n`,
+    answer: "a"
+  },
+  {
+    question: `
+    What is Pam's favorite flavor of Yogurt?
+    a. Vanilla
+    b. Strawberry
+    c. Mixed berry\n`,
+    answer: "c"
+  },
+  {
+    question: `What did Kevin buy for himself when he got himself for Secret Santa?
+    a. A foot massager
+    b. A foot bath
+    c. M&M's\n`,
+    answer: "b"
+  },
+  {
+    question: `What's the name of Dwight's porcupine who he used to make it look like Jim was pranking him?
+    a. Hilly
+    b. Henry
+    c. Henrietta\n`,
+    answer: "c"
+  },
+  {
+    question:`What name-tag does Michael wear on his head during the activity on diversity day?
+    a. Colin Powell
+    b. Gandhi
+    c. Martin Luther King Jr.\n`,
+    answer: "c"
+  }
+]
+
+var levelTwoQuestions = [
+  {
+    question: `What does Kevin suggest Dwight put in his gun holster?
+    a. A cell phone
+    b. A banana
+    c. A toy gun\n`,
+    answer: "b"
+  },
+  {
+    question: `At Phyllis and Bob Vance's wedding, what did Michael say everyone called Phyllis back in high school?
+    a. Four eyes
+    b. Phyll
+    c. Easy rider\n`,
+    answer: "c"
+  },
+  {
+    question: `What kind of sauce does Kevin ask for when being forced to eat broccoli as part of his New Year's resolution?
+    a. Ketchup
+    b. Hollandaise
+    c. Mayo\n`,
+    answer: "b"
+  },
+  {
+    question: `What radio station stickers are seen around the office?
+    a. Foggy 901
+    b. Dr. Ira glass
+    c. Froggy 101\n`,
+    answer: "c"
+  },
+  {
+    question: `"______, where's ______? Whoa, there you are. Didn't see you behind that grain of rice! Boom. Roasted!"
+    a. Jim
+    b. Angela
+    c. Pam\n`,
+    answer: "b"
+  }
+]
+
+var levelThreeQuestions = [
+  {
+    question: `What kind of sandwich does Michael have a dream about when he's the head of Michael Scott Paper Company?
+    a. Peanut butter and tunafish
+    b. Tunafish and skittles
+    c. Mayo and black olives\n`,
+    answer: "a"
+  },
+  {
+    question: `Dwight tells Jim's roommate that he keeps an extra pair of shoes in his car for special occasions. What kind of shoes are they?
+    a. Dress shoes
+    b. Birkenstock
+    c. Sandals\n`,
+    answer: "b"
+  },
+  {
+    question:`During the episode, Prince Family Paper, what's the secret signal that Dwight and Michael agree on using?
+    a. Raising your eyebrows
+    b. Licking your lips
+    c. Coughing loudly\n`,
+    answer: "b"
+  },
+  {
+    question:`After Dunder Mifflin bought out Michael Scott Paper Company, what does Michael offer as a peace offering to the sales team which is then rejected by Stanley who says, "Nobody likes that stuff except for you"?
+    a. Peppermint chocolate bark
+    b. Milk chocolate bark
+    c. White chocolate bark\n`,
+    answer: "c"
+  },
+  {
+    question:`After going with Andy to Donna's husband's baseball game, what does Michael take from the game to bring back to the office?
+    a. A bag of orange slices
+    b. A baseball
+    c. A baseball glove\n`,
+    answer: "a"
+  }
+]
+
+
+function play(question,answer){
+  var userAnswer = readlineSync.question(chalk.blueBright(question));
+  if (answer.toLowerCase() === userAnswer.toLowerCase()){
+    console.log(chalk.green.bgBlack("\nYou got the right answer!"));
+    score++;
+  }else{
+    console.log(chalk.red.bgBlack("\nSorry! You were wrong this time"));
+  }
+}
+
+console.log(chalk.cyanBright.bold.bgBlack("\nWelcome to LEVEL 1\n"));
+for(var i = 0; i < levelOneQuestions.length; i++){
+  var currentQuestion = (levelOneQuestions[i]);
+  play(currentQuestion.question, currentQuestion.answer);
+  console.log(chalk.yellowBright("\nYour score is "),score);
+  console.log("------------------------------------");
+}
+
+scoreLevel1 = score;
+
+if(scoreLevel1 > 2){
+  console.log(chalk.greenBright.bold.bgBlack("Congratulations! You have cleared LEVEL 1. Please proceed with LEVEL 2"));
+  console.log("------------------------------------");
+  console.log(chalk.cyanBright.bold.bgBlack("\nWelcome to LEVEL 2\n"));
+  for(var i = 0; i < levelTwoQuestions.length; i++){
+  var currentQuestion = (levelTwoQuestions[i]);
+  play(currentQuestion.question, currentQuestion.answer);
+  console.log(chalk.yellowBright("\nYour score is "),score);
+  console.log("------------------------------------");
+  }
+  scoreLevel2 = score - scoreLevel1;
+  if(scoreLevel2 > 2){
+    console.log(chalk.greenBright.bold.bgBlack("Congratulations! You have cleared LEVEL 2. Please proceed with LEVEL 3"));
+    console.log("------------------------------------");
+    console.log(chalk.cyanBright.bold.bgBlack("\nWelcome to LEVEL 3\n"));
+    for(var i = 0; i < levelThreeQuestions.length; i++){
+    var currentQuestion = (levelThreeQuestions[i]);
+    play(currentQuestion.question, currentQuestion.answer);
+    console.log(chalk.yellowBright("\nYour score is "),score);
+    console.log("------------------------------------");
+    }
+  }
+  else{
+    console.log(chalk.redBright("Sorry! You have not cleared LEVEL 2. Please get atleast 3/5 to proceed to LEVEL 3"));
+  }
+}
+else{
+  console.log(chalk.redBright("Sorry! You have not cleared LEVEL 1. Please get atleast 3/5 to proceed to LEVEL 2"));
+}
+
+console.log(chalk.cyanBright.bold.bgBlack("Your final score is "),score);
+
+var highScores = [
+  {
+    name: "Ashutosh",
+    score: 13
+  },
+  {
+    name: "Rohan",
+    score: 9
+  },
+  {
+    name: "Tanmay",
+    score: 5
+  }
+]
+
+function compare(score1,score2){
+  if (score1 > score2){
+    console.log(chalk.greenBright("Congratulations " + (myName) + "!" + " You are one of the high scorers. Please send me a screenshot!"));
+  }
+}
+
+console.log("------------------------------------");
+
+console.log(chalk.green.bgBlack("Checkout the high scores"));
+console.log(chalk.green.bgBlack("",highScores[0].name,highScores[0].score,"\n",highScores[1].name,highScores[1].score,"\n",highScores[2].name,highScores[2].score));
+
+console.log("------------------------------------");
+
+compare(score,highScores[2].score);
